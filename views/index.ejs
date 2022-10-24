@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+    <!-- <link rel="stylesheet" href="../styles.css" /> -->
+    <title>ECS Shortener</title>
+  </head>
+  <body>
+    <div class="container text-center">
+      <h1>ECS Shortener</h1>
+      <form action="/shortUrls" method="post" class="my-4 row">
+        <div class="col-md-9">
+          <label for="fullUrl" class="visually-hidden form-label"
+            >Long URL</label
+          >
+          <input
+            required
+            placeholder="URL"
+            type="url"
+            name="fullUrl"
+            id="fullUrl"
+            class="form-control"
+          />
+        </div>
+        <div class="col-lg">
+          <input
+            placeholder="Vanity URL"
+            type="text"
+            name="vanityUrl"
+            id="vanityUrl"
+            class="form-control"
+          />
+        </div>
+        <div class="col-auto">
+          <button class="btn btn-success" type="submit">Shorten!</button>
+        </div>
+        <% if (message) { %>
+        <div class="alert alert-<%= message.type %> mt-2" role="alert">
+          <%= message.intro %> <%= message.message %>
+        </div>
+        <%} else { %> <% } %>
+      </form>
+      <table class="table table-striped table-responsive table-hover">
+        <thead>
+          <tr>
+            <th>Long URL</th>
+            <th>Short URL</th>
+            <th class="text-center">Clicks</th>
+
+            <th class="text-end">QR Code</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% shortUrls.forEach(shortUrl => { %>
+          <tr>
+            <td>
+              <a href="<%= shortUrl.full %>" target="_blank"
+                ><%= shortUrl.full %></a
+              >
+            </td>
+            <td>
+              <a href="<%= origin %>/<%= shortUrl.short %>" target="_blank"
+                ><%= origin %>/<%= shortUrl.short %></a
+              >
+              <button
+                class="btn copy"
+                id="copy-button"
+                data-tippy-content="Copied!"
+                data-clipboard-text="<%= origin %>/<%= shortUrl.short %>"
+              >
+                <img
+                  src="../assets/images/clippy.svg"
+                  style="
+                    margin-top: -3px;
+                    position: relative;
+                    width: 1.5rem;
+                    background: #d3d3d3;
+                  "
+                  class="img-thumbnail"
+                  alt="Copy to clipboard"
+                />
+              </button>
+            </td>
+            <td class="text-center"><%= shortUrl.clicks %></td>
+
+            <td class="text-end">
+              <a href="../qrcode.png" target="_blank"
+                ><img
+                  class="img-thumbnail"
+                  style="width: 2rem"
+                  src="../qrcode.png"
+              /></a>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <script>
+      new ClipboardJS(".btn");
+    </script>
+    <script>
+      tippy("#copy-button", {
+        trigger: "click",
+        hideOnClick: false,
+        onShow(instance) {
+          setTimeout(() => {
+            instance.hide();
+          }, 2000);
+        },
+      });
+    </script>
+  </body>
+</html>
