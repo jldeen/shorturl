@@ -25,7 +25,7 @@ exports.validateAuth = (req, res, next) => {
       }
     });
   } else {
-    // if no token, let user know
+    // If not authenticated, redirect to sign in page
     res.redirect("welcome");
   }
 };
