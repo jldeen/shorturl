@@ -5,14 +5,19 @@ const mongoose = require("mongoose");
 const randomstring = require("randomstring");
 const qrcode = require("qrcode");
 
+const { validateAuth } = require("./auth");
+
 const ShortUrl = require("./models/shortUrl");
 const helper = require("./helper");
 
 // Connect to DB
-mongoose.connect("mongodb://localhost:27017/urlShortener", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(
+  process.env.MONGODB || "mongodb://mongodb:27017/urlShortener",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 
 // Initialize app
 const app = express();
@@ -51,7 +56,11 @@ app.use((req, res, next) => {
 // Set template engine
 app.set("view engine", "ejs");
 
-app.get("/", async (req, res) => {
+app.get("/welcome", async (req, res) => {
+  res.render("welcome");
+});
+
+app.get("/", [validateAuth], async (req, res) => {
   const shortUrls = await ShortUrl.find();
   const origin = req.protocol + "://" + req.headers.host;
   res.render("index", {
