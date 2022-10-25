@@ -9,6 +9,8 @@ services:
     environment:
       - AWS_DEFAULT_REGION=us-east-1
       - COGNITO_USER_POOL_ID=us-east-1_OuS68Cxfl
+      - COGNITO_CLIENT_ID=oam0d9r3q22h6fjl13c7cn3a7
+      - COGNITO_CLIENT_SECRET=
     ports:
       - 3000:3000
     links:
