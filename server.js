@@ -68,6 +68,7 @@ app.get("/", [validateAuth], async (req, res) => {
     origin: origin,
     helper: helper,
   });
+  console.log(req.cookies);
 });
 
 // create shorturl
