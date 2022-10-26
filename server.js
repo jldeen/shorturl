@@ -43,7 +43,7 @@ app.use(express.static("public"));
 // Cookie Same Site
 if (process.env.NODE_ENV === "production") {
   app.set("trust proxy", 1); // trust first proxy
-  // sessionConfig.cookie.secure = true; // serve secure cookies
+  sessionConfig.cookie.secure = true; // serve secure cookies
 }
 
 //flash message middleware
