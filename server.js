@@ -74,7 +74,7 @@ app.get("/logout", [validateAuth], async (req, res) => {
 });
 
 // create shorturl
-app.post("/shortUrls", async (req, res) => {
+app.post("/shortUrls", [validateAuth], async (req, res) => {
   const dbQuery = await ShortUrl.findOne({ short: req.body.vanityUrl });
   if (dbQuery) {
     // display error message if short url already exists
