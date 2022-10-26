@@ -43,7 +43,13 @@ exports.validateAuth = async (req, res, next) => {
   if (token) {
     cognitoExpress.validate(token, function (err, response) {
       //If API is not authenticated, Return 401 with error message.
-      if (err) return res.status(401).send(err);
+      if (err == "TokenExpiredError") {
+        console.log(err);
+      } else {
+        return res.status(401).send(err);
+      }
+
+      // Fix error if unauthorized - redirect to refresh token or sign in
 
       //Else API has been authenticated. Proceed.
       res.locals.user = response;
