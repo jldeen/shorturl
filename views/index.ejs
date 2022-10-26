@@ -14,7 +14,7 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-lg bg-dark">
-      <div class="container-fluid">
+      <div class="container-fluid" style="overflow: hidden">
         <h1 class="navbar-brand" style="color: white">
           Elastic Containers URL Shortener
         </h1>
@@ -29,7 +29,7 @@
     >
       <div
         class="row text-center d-flex align-items-top"
-        style="overflow: scroll; width: 75vw; height: 75vh"
+        style="overflow: scroll; width: 80vw; height: 75vh"
       >
         <h1>ECS Shortener</h1>
         <form action="/shortUrls" method="post" class="my-4 row">
@@ -123,13 +123,13 @@
             <% }) %>
           </tbody>
         </table>
-        <footer>
-          <div class="text-center">
-            Powered by ECS, Fargate, MongoDB Atlas on AWS, and AWS Cognito
-          </div>
-        </footer>
       </div>
     </div>
+    <footer>
+      <div class="text-center" style="margin-top: -6%">
+        Powered by ECS, Fargate, MongoDB Atlas on AWS, and AWS Cognito
+      </div>
+    </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/tippy.js@6"></script>

@@ -1,3 +1,4 @@
+[ ] - FavIcon
 [ ] - Test sign up tomorrow
 [ ] - POST token exchange - Basic Auth fix?
 [ ] - Fix query string in URL
