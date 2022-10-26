@@ -43,7 +43,7 @@ app.use(express.static("public"));
 // Cookie Same Site
 if (process.env.NODE_ENV === "production") {
   app.set("trust proxy", 1); // trust first proxy
-  sessionConfig.cookie.secure = true; // serve secure cookies
+  // sessionConfig.cookie.secure = true; // serve secure cookies
 }
 
 //flash message middleware
@@ -56,19 +56,21 @@ app.use((req, res, next) => {
 // Set template engine
 app.set("view engine", "ejs");
 
-app.get("/welcome", async (req, res) => {
-  res.render("welcome");
-});
-
 app.get("/", [validateAuth], async (req, res) => {
   const shortUrls = await ShortUrl.find();
   const origin = req.protocol + "://" + req.headers.host;
+
   res.render("index", {
     shortUrls: shortUrls,
     origin: origin,
     helper: helper,
   });
-  console.log(req.cookies);
+});
+
+app.get("/logout", [validateAuth], async (req, res) => {
+  res.clearCookie("token");
+  console.log("signed out");
+  res.render("welcome");
 });
 
 // create shorturl
