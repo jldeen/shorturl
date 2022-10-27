@@ -10,6 +10,10 @@
       integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
       crossorigin="anonymous"
     />
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"
+    ></script>
     <title>ECS Shortener</title>
   </head>
   <body>
@@ -110,12 +114,14 @@
                 </button>
               </td>
               <td><%= shortUrl.clicks %></td>
-
-              <td class="text-end">
+              <td id="qr" class="text-end">
                 <a
-                  href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=<%= origin %>/<%= shortUrl.short %>"
-                  target="_blank"
-                  ><img
+                  id="qr"
+                  href="javascript:void(0);"
+                  onclick="generateQR(`<%= origin %>/<%= shortUrl.short %>`, `qr-<%= shortUrl.short %>`)"
+                >
+                  <img
+                    id="qr"
                     class="img-thumbnail"
                     style="width: 2rem"
                     src="../qrcode.png"
@@ -135,6 +141,51 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/tippy.js@6"></script>
+    <script type="text/javascript">
+      const qrCode = new QRCodeStyling({
+        width: 300,
+        height: 300,
+        margin: 10,
+        image: "http://localhost:3000/assets/images/brand_logo.png",
+        type: "svg",
+        dotsOptions: {
+          color: "#f79225",
+          type: "extra-rounded",
+          gradient: {
+            type: "linear",
+            rotation: 120,
+            colorStops: [
+              {
+                color: "#f79225",
+                offset: 0,
+              },
+              {
+                color: "#fbcb2e",
+                offset: 1,
+              },
+            ],
+          },
+        },
+        cornersSquareOptions: {
+          type: "extra-rounded",
+          color: "#3e3d3d",
+        },
+        backgroundOptions: {
+          color: "#fef5e6",
+        },
+        imageOptions: {
+          crossOrigin: "anonymous",
+          margin: 6,
+        },
+      });
+
+      function generateQR(url, name) {
+        qrCode.update({
+          data: url,
+        });
+        qrCode.download({ name: name, extension: "svg" });
+      }
+    </script>
     <script>
       new ClipboardJS(".btn");
     </script>

@@ -1,7 +1,6 @@
 const QRCodeStyling = require("qr-code-styling");
-const img = require("../public/assets/images/brand_logo.svg");
 
-exports.generateQRCode = async (url) => {
+function generateQrCode(url) {
   const qrCode = new QRCodeStyling({
     width: 300,
     height: 300,
@@ -39,6 +38,4 @@ exports.generateQRCode = async (url) => {
       margin: 6,
     },
   });
-  qrCode.append(document.getElementById("canvas"));
-  qrCode.download({ name: "qr", extension: "svg" });
-};
+}

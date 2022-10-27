@@ -11,10 +11,6 @@
       crossorigin="anonymous"
     />
     <title>Elastic Containers URL Shortener</title>
-    <script
-      type="text/javascript"
-      src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"
-    ></script>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg bg-dark">
@@ -66,47 +62,5 @@
       </div>
     </div>
     <div></div>
-    <div id="canvas"></div>
-    <script type="text/javascript">
-      const qrCode = new QRCodeStyling({
-        width: 300,
-        height: 300,
-        margin: 10,
-        type: "svg",
-        data: "https://www.facebook.com/",
-        image: "../assets/images/brand_logo.png",
-        dotsOptions: {
-          color: "#f79225",
-          type: "extra-rounded",
-          gradient: {
-            type: "linear",
-            rotation: 120,
-            colorStops: [
-              {
-                color: "#f79225",
-                offset: 0,
-              },
-              {
-                color: "#fbcb2e",
-                offset: 1,
-              },
-            ],
-          },
-        },
-        cornersSquareOptions: {
-          type: "extra-rounded",
-          color: "#3e3d3d",
-        },
-        backgroundOptions: {
-          color: "#fef5e6",
-        },
-        imageOptions: {
-          crossOrigin: "anonymous",
-          margin: 6,
-        },
-      });
-
-      qrCode.append(document.getElementById("canvas"));
-    </script>
   </body>
 </html>

@@ -1,4 +1,5 @@
 const CognitoExpress = require("cognito-express");
+require("dotenv").config();
 
 // Setup CognitoExpress
 const cognitoExpress = new CognitoExpress({

@@ -1,14 +1,18 @@
 const express = require("express");
+const ejs = require("ejs");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const mongoose = require("mongoose");
-const randomstring = require("randomstring");
-const qrcode = require("qrcode");
-
+const randomString = require("randomstring");
 const { validateAuth } = require("./scripts/auth");
-
 const ShortUrl = require("./models/shortUrl");
+
+// const qrCode = require("./models/qrcode");
 const helper = require("./scripts/helper");
+const { db } = require("./models/shortUrl");
+
+// allow .env
+require("dotenv").config();
 
 // Connect to DB
 mongoose.connect(
@@ -37,15 +41,6 @@ app.use(
   })
 );
 
-// Temp fix for qr place holder
-app.use(express.static("public"));
-
-// Cookie Same Site
-if (process.env.NODE_ENV === "production") {
-  app.set("trust proxy", 1); // trust first proxy
-  sessionConfig.cookie.secure = true; // serve secure cookies
-}
-
 //flash message middleware
 app.use((req, res, next) => {
   res.locals.message = req.session.message;
@@ -56,6 +51,16 @@ app.use((req, res, next) => {
 // Set template engine
 app.set("view engine", "ejs");
 
+// Temp fix for qr place holder
+app.use(express.static("public"));
+
+// Cookie Same Site
+if (process.env.NODE_ENV === "production") {
+  app.set("trust proxy", 1); // trust first proxy
+  sessionConfig.cookie.secure = true; // serve secure cookies
+}
+
+// Routes
 app.get("/", [validateAuth], async (req, res) => {
   const shortUrls = await ShortUrl.find();
   const origin = req.protocol + "://" + req.headers.host;
@@ -86,7 +91,7 @@ app.post("/shortUrls", [validateAuth], async (req, res) => {
   } else {
     await ShortUrl.create({
       full: req.body.fullUrl,
-      short: req.body.vanityUrl || randomstring.generate(7),
+      short: req.body.vanityUrl || randomString.generate(7),
       // email: res.locals.user,
     });
     // Confirm short url created successfully
@@ -98,6 +103,13 @@ app.post("/shortUrls", [validateAuth], async (req, res) => {
   }
   res.redirect("/");
 });
+
+// // generate qr
+// app.post("/qr", [validateAuth], async (req, res) => {
+//   const dbQuery = await ShortUrl.findOne({ short: req.body.vanityUrl });
+//   const url = dbQuery.short;
+//   console.log(url);
+// });
 
 app.get("/:shortUrl", async (req, res) => {
   const shortUrl = await ShortUrl.findOne({ short: req.params.shortUrl });
