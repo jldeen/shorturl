@@ -1,4 +1,6 @@
-FROM node:alpine
+FROM node:lts-alpine3.16
+
+RUN apk update && apk add fontconfig
 
 COPY ./ ./ 
 

@@ -10,6 +10,7 @@
       integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="../css/style.css" />
     <title>Elastic Containers URL Shortener</title>
   </head>
   <body>
@@ -21,33 +22,22 @@
       </div>
       <div class="btn-nav">
         <a
-          href="https://s18stest.auth.us-east-1.amazoncognito.com/signup?client_id=7qgeso579hu2gv5qc259ch0h2r&response_type=code&scope=email+openid&redirect_uri=http://localhost:3000"
+          href="https://s18stest.auth.us-east-1.amazoncognito.com/signup?client_id=7qgeso579hu2gv5qc259ch0h2r&response_type=code&scope=email+openid&redirect_uri=https://jldeen.dev"
           class="btn btn-primary me-1"
           >Sign Up</a
         >
         <a
-          href="https://s18stest.auth.us-east-1.amazoncognito.com/login?client_id=7qgeso579hu2gv5qc259ch0h2r&response_type=code&scope=email+openid&redirect_uri=http://localhost:3000"
+          href="https://s18stest.auth.us-east-1.amazoncognito.com/login?client_id=7qgeso579hu2gv5qc259ch0h2r&response_type=code&scope=email+openid&redirect_uri=https://jldeen.dev"
           class="btn btn-primary me-2"
           >Sign In</a
         >
       </div>
     </nav>
-    <div
-      class="container-fluid d-flex justify-content-center align-items-center"
-      style="height: 100vh; overflow: hidden"
-    >
-      <div
-        class="row text-center d-flex align-items-center"
-        style="overflow: hidden; width: 50vw; height: 50vh"
-      >
+    <div class="center">
+      <div>
         <h1>Welcome to the Elastic Containers / Fargate URL shortener</h1>
-
-        <p class="mt-4">
-          Powered by ECS, Fargate, MongoDB Atlas on AWS, and AWS Cognito
-        </p>
-        <div
-          class="text-center d-flex align-items-center justify-content-center"
-        >
+        <div></div>
+        <div class="text-center login">
           <a
             href="https://s18stest.auth.us-east-1.amazoncognito.com/signup?client_id=7qgeso579hu2gv5qc259ch0h2r&response_type=code&scope=email+openid&redirect_uri=http://localhost:3000"
             class="btn btn-primary mx-2"
@@ -61,6 +51,13 @@
         </div>
       </div>
     </div>
-    <div></div>
+    <footer>
+      <div class="text-center footer">
+        Powered by ECS, Fargate, MongoDB Atlas on AWS, and AWS Cognito
+      </div>
+      <div class="logo">
+        <img src="../assets/images/footer-logo.png" />
+      </div>
+    </footer>
   </body>
 </html>

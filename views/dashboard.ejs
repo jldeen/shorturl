@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/gh/tofsjonas/sortable/sortable.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/gh/tofsjonas/sortable/sortable.min.js"></script>
+    <title>Dashboard</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-dark">
+      <div class="container" style="overflow: hidden">
+        <h1 class="navbar-brand" style="color: white">
+          Elastic Containers URL Shortener
+        </h1>
+      </div>
+      <div>
+        <a href="/" class="btn btn-primary me-1">Home</a>
+        <a href="/logout" class="btn btn-primary me-2">Logout</a>
+      </div>
+    </nav>
+    <div class="container-fluid my-4 center dashboard">
+      <table
+        class="sortable table table-striped table-responsive table-hover me-12"
+      >
+        <thead>
+          <tr>
+            <th class="asc" id="date">Date Created</th>
+            <th class="no-sort">Long URL</th>
+            <th class="no-sort">Short URL</th>
+            <th class="">Clicks</th>
+            <th class="no-sort text-end">QR Code</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% shortUrls.forEach(shortUrl => { %>
+          <tr>
+            <td><%= shortUrl.date %></td>
+            <td>
+              <a href="<%= shortUrl.full %>" target="_blank" style="width: 1vw"
+                ><%= shortUrl.full %></a
+              >
+            </td>
+            <td>
+              <a href="<%= origin %>/<%= shortUrl.short %>" target="_blank"
+                ><%= origin %>/<%= shortUrl.short %></a
+              >
+              <button
+                class="btn copy"
+                id="copy-button"
+                data-tippy-content="Copied!"
+                data-clipboard-text="<%= origin %>/<%= shortUrl.short %>"
+              >
+                <img
+                  src="../assets/images/clippy.svg"
+                  style="
+                    margin-top: -3px;
+                    position: relative;
+                    width: 1.5rem;
+                    background: #d3d3d3;
+                  "
+                  class="img-thumbnail"
+                  alt="Copy to clipboard"
+                />
+              </button>
+            </td>
+            <td><%= shortUrl.clicks %></td>
+            <td id="qr" class="text-end">
+              <a
+                id="qr"
+                href="javascript:void(0);"
+                onclick="generateQR(`<%= origin %>/<%= shortUrl.short %>`, `qr-<%= shortUrl.short %>`)"
+              >
+                <img id="qr" class="img-thumbnail img-qr" src="../qrcode.png"
+              /></a>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+    <footer>
+      <div class="text-center footer">
+        Powered by ECS, Fargate, MongoDB Atlas on AWS, and AWS Cognito
+      </div>
+      <div class="logo">
+        <img src="../assets/images/footer-logo.png" />
+      </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <script src="../js/qr.js"></script>
+    <script src="../js/tippy.js"></script>
+    <script src="../js/redirect.js"></script>
+  </body>
+</html>

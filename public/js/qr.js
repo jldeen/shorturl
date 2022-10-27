@@ -35,6 +35,14 @@ const qrCode = new QRCodeStyling({
   },
 });
 
+function testQR(url, name) {
+  qrCode.update({
+    data: url,
+  });
+  qrCode.append(document.getElementById("qr"));
+  qrCode.download({ name: name, extension: "svg" });
+}
+
 function generateQR(url, name) {
   qrCode.update({
     data: url,

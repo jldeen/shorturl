@@ -2,6 +2,7 @@ version: "3"
 services:
   shorturl:
     container_name: short-url
+    # image: jldeen/shorturl
     build:
       context: .
     restart: always
@@ -13,6 +14,7 @@ services:
       - COGNITO_CLIENT_SECRET=
     ports:
       - 3000:3000
+      # - 80
     links:
       - mongo
   mongo:

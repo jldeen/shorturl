@@ -10,6 +10,7 @@ async function copyUrl() {
 async function signOut(res) {
   try {
     res.clearCookie("token");
+    res.clearCookie("user");
     console.log("signed out");
   } catch (err) {
     console.error(err);

@@ -23,6 +23,9 @@ exports.validateAuth = async (req, res, next) => {
       res.cookie("token", access_token, {
         httpOnly: true,
       });
+      res.cookie("user", user, {
+        httpOnly: true,
+      });
     }
 
     //Fail if token not present in header.

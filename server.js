@@ -7,7 +7,7 @@ const randomString = require("randomstring");
 const { validateAuth } = require("./middleware/auth");
 const ShortUrl = require("./models/shortUrl");
 
-const QRCodeCanvas = require("@loskir/styled-qr-code-node"); // TODO work on tomorrow
+const QRCodeCanvas = require("@loskir/styled-qr-code-node");
 
 // const qrCode = require("./models/qrcode");
 const helper = require("./middleware/helper");
@@ -75,8 +75,18 @@ app.get("/", [validateAuth], async (req, res) => {
 
 app.get("/logout", [validateAuth], async (req, res) => {
   res.clearCookie("token");
+  res.clearCookie("user");
   console.log("signed out");
   res.redirect("/");
+});
+
+app.get("/dashboard", [validateAuth], async (req, res) => {
+  const shortUrls = await ShortUrl.find();
+  const origin = req.protocol + "://" + req.headers.host;
+  res.render("dashboard", {
+    shortUrls: shortUrls,
+    origin: origin,
+  });
 });
 
 // create shorturl
@@ -90,16 +100,24 @@ app.post("/shortUrls", [validateAuth], async (req, res) => {
       message: "Please try a different name.",
     };
   } else {
-    await ShortUrl.create({
+    // create link in db
+    const url = await ShortUrl.create({
       full: req.body.fullUrl,
       short: req.body.vanityUrl || randomString.generate(7),
-      // email: res.locals.user,
+      email: req.cookies.user,
     });
+
+    // Get shortlink
+    const shortLink = process.env.REDIRECT_URI + "/" + url.toJSON().short;
+    const user = url.toJSON().email;
+    console.log(shortLink, "created successfully by", user);
+
     // Confirm short url created successfully
     req.session.message = {
       type: "success",
       intro: "Success!",
-      message: "Short URL successfully created.",
+      message: `Short URL ${shortLink} successfully created.`,
+      shortLink: shortLink,
     };
   }
   res.redirect("/");

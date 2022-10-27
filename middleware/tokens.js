@@ -47,6 +47,7 @@ exports.validateToken = async (access_token, res, next) => {
       //   return res.status(403).send(err)
       console.log(err);
       res.clearCookie("token");
+      res.clearCookie("user");
       return res.render("welcome", err);
     }
 
