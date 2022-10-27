@@ -1,8 +1,8 @@
-[ ] - FavIcon
+[X] - FavIcon
 [ ] - Test sign up tomorrow
-[ ] - POST token exchange - Basic Auth fix?
-[ ] - Fix query string in URL
-[ ] - Fix logout string after logout and redirect
+[X] - POST token exchange - Basic Auth fix?
+[X] - Fix query string in URL
+[X] - Fix logout string after logout and redirect
 [ ] - user support (using email?)
 [ ] - Filter by url/short
 [ ] - QR Code Support

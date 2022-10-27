@@ -112,7 +112,9 @@
               <td><%= shortUrl.clicks %></td>
 
               <td class="text-end">
-                <a href="../qrcode.png" target="_blank"
+                <a
+                  href="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=<%= origin %>/<%= shortUrl.short %>"
+                  target="_blank"
                   ><img
                     class="img-thumbnail"
                     style="width: 2rem"
@@ -147,8 +149,12 @@
         },
       });
     </script>
-    <!-- <script>
-      window.location.href = window.location.origin + window.location.pathname;
-    </script> -->
+    <script>
+      history.replaceState(
+        null,
+        null,
+        location.href.replace(/[\?&]code=[^&]+/, "").replace(/^&/, "?")
+      );
+    </script>
   </body>
 </html>

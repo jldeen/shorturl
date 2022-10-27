@@ -5,10 +5,10 @@ const mongoose = require("mongoose");
 const randomstring = require("randomstring");
 const qrcode = require("qrcode");
 
-const { validateAuth } = require("./auth");
+const { validateAuth } = require("./scripts/auth");
 
 const ShortUrl = require("./models/shortUrl");
-const helper = require("./helper");
+const helper = require("./scripts/helper");
 
 // Connect to DB
 mongoose.connect(
@@ -70,7 +70,7 @@ app.get("/", [validateAuth], async (req, res) => {
 app.get("/logout", [validateAuth], async (req, res) => {
   res.clearCookie("token");
   console.log("signed out");
-  res.render("welcome");
+  res.redirect("/");
 });
 
 // create shorturl
@@ -87,6 +87,7 @@ app.post("/shortUrls", [validateAuth], async (req, res) => {
     await ShortUrl.create({
       full: req.body.fullUrl,
       short: req.body.vanityUrl || randomstring.generate(7),
+      // email: res.locals.user,
     });
     // Confirm short url created successfully
     req.session.message = {

@@ -19,6 +19,10 @@ const shortUrlSchema = new mongoose.Schema({
     // `Date.now()` returns the current unix timestamp as a number
     default: Date.now,
   },
+  email: {
+    type: String,
+    required: false,
+  },
 });
 
 module.exports = mongoose.model("ShortUrl", shortUrlSchema);
