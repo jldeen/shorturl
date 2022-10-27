@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { fetchToken, validateToken } = require("../scripts/tokens");
+const { fetchToken, validateToken } = require("../middleware/tokens");
 
 function decodeToken(id_token) {
   const response = jwt.decode(id_token);

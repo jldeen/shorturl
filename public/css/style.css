@@ -1,0 +1,3 @@
+.sortable th.no-sort {
+  pointer-events: none;
+}

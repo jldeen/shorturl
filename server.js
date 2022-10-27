@@ -4,12 +4,13 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const mongoose = require("mongoose");
 const randomString = require("randomstring");
-const { validateAuth } = require("./scripts/auth");
+const { validateAuth } = require("./middleware/auth");
 const ShortUrl = require("./models/shortUrl");
 
+const QRCodeCanvas = require("@loskir/styled-qr-code-node"); // TODO work on tomorrow
+
 // const qrCode = require("./models/qrcode");
-const helper = require("./scripts/helper");
-const { db } = require("./models/shortUrl");
+const helper = require("./middleware/helper");
 
 // allow .env
 require("dotenv").config();
