@@ -7,6 +7,7 @@ services:
       context: .
     restart: always
     environment:
+      - NODE_ENV=production
       - REDIRECT_URI=http://localhost:3000
       - AWS_DEFAULT_REGION=us-east-1
       - COGNITO_USER_POOL_ID=us-east-1_OuS68Cxfl

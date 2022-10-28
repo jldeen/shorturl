@@ -1,6 +1,6 @@
 const qrCode = new QRCodeStyling({
-  width: 300,
-  height: 300,
+  width: 2000,
+  height: 2000,
   margin: 10,
   image: "http://localhost:3000/assets/images/brand_logo.png",
   type: "svg",
@@ -35,17 +35,19 @@ const qrCode = new QRCodeStyling({
   },
 });
 
-function testQR(url, name) {
+function generateQRCode(url) {
   qrCode.update({
     data: url,
+    width: 250,
+    height: 250,
   });
+
   qrCode.append(document.getElementById("qr"));
-  qrCode.download({ name: name, extension: "svg" });
 }
 
-function generateQR(url, name) {
+function downloadQRCode(url, name) {
   qrCode.update({
     data: url,
   });
-  qrCode.download({ name: name, extension: "svg" });
+  qrCode.download({ name: name, extension: "png" });
 }
