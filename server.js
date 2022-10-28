@@ -110,8 +110,6 @@ app.post("/shortUrls", [validateAuth], async (req, res, next) => {
     // Get shortlink
     const shortLink = process.env.REDIRECT_URI + "/" + url.toJSON().short;
 
-    req.shortlink = shortLink;
-
     const user = url.toJSON().email;
     console.log(shortLink, "created successfully by", user);
 
