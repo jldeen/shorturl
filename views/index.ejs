@@ -67,8 +67,8 @@
           </div>
           <% if (message) { %>
           <div class="alert alert-<%= message.type %> mt-2" role="alert">
-            <%= message.intro %> <%= message.message %>
-
+            <%= message.intro %> <%= message.message %> <% if (message.type ==
+            "success") { %>
             <div id="qr" class="qr text-center mx-2"></div>
             <button
               type="button"
@@ -86,12 +86,14 @@
             >
               Download QR Code
             </button>
+            <% } %>
           </div>
-          <%} else { %> <% } %> <% if (message) { %>
+          <%} else { %> <% } %> <% if (message) { %> <% if (message.type ==
+          "success") { %>
           <div class="text-center">
             <a href="/" class="btn btn-primary mt2">Make Another Link!</a>
           </div>
-          <%} else { %> <% } %>
+          <% } %> <%} else { %> <% } %>
         </form>
       </div>
     </div>
