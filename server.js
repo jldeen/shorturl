@@ -7,10 +7,6 @@ const randomString = require("randomstring");
 const { validateAuth } = require("./middleware/auth");
 const ShortUrl = require("./models/shortUrl");
 
-const { QRCodeCanvas } = require("@loskir/styled-qr-code-node");
-
-const helper = require("./middleware/helper");
-
 // allow .env
 require("dotenv").config();
 
@@ -62,13 +58,12 @@ if (process.env.NODE_ENV === "production") {
 // Routes
 app.get("/", [validateAuth], async (req, res) => {
   const shortUrls = await ShortUrl.find();
-  // const origin = req.protocol + "://" + req.headers.host;
-  const origin = req.headers.referer;
+  const origin = req.protocol + "://" + req.headers.host;
+  // const origin = req.headers.referer;
 
   res.render("index", {
     shortUrls: shortUrls,
     origin: origin,
-    helper: helper,
   });
 });
 

@@ -12,7 +12,16 @@ exports.validateAuth = async (req, res, next) => {
     validateToken(access_token, res, next);
   } else {
     const grant_code = req.url.split("=")[1];
-    if (!grant_code) return res.render("welcome");
+    if (!grant_code) {
+      const origin = req.protocol + "://" + req.headers.host;
+      const cognitoLoginUrl = process.env.COGNITO_LOGIN_URL;
+      const cognitoClientId = process.env.COGNITO_CLIENT_ID;
+      return res.render("welcome", {
+        origin: origin,
+        cognitoLoginUrl: cognitoLoginUrl,
+        cognitoClientId: cognitoClientId,
+      });
+    }
 
     const tokens = await fetchToken(grant_code);
     const access_token = tokens.access_token;

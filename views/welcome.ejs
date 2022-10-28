@@ -22,12 +22,12 @@
       </div>
       <div class="btn-group">
         <a
-          href="https://s18stest.auth.us-east-1.amazoncognito.com/signup?client_id=7qgeso579hu2gv5qc259ch0h2r&response_type=code&scope=email+openid&redirect_uri=http://localhost:3000"
+          href="<%= cognitoLoginUrl %>/signup?client_id=<%= cognitoClientId %>&response_type=code&scope=email+openid&redirect_uri=<%= origin %>"
           class="btn btn-primary me-1"
           >Sign Up</a
         >
         <a
-          href="https://s18stest.auth.us-east-1.amazoncognito.com/login?client_id=7qgeso579hu2gv5qc259ch0h2r&response_type=code&scope=email+openid&redirect_uri=http://localhost:3000"
+          href="<%= cognitoLoginUrl %>/login?client_id=<%= cognitoClientId %>&response_type=code&scope=email+openid&redirect_uri=<%= origin %>"
           class="btn btn-primary me-2"
           >Sign In</a
         >
@@ -39,12 +39,12 @@
         <div></div>
         <div class="text-center login">
           <a
-            href="https://s18stest.auth.us-east-1.amazoncognito.com/signup?client_id=7qgeso579hu2gv5qc259ch0h2r&response_type=code&scope=email+openid&redirect_uri=http://localhost:3000"
+            href="<%= cognitoLoginUrl %>/signup?client_id=<%= cognitoClientId %>&response_type=code&scope=email+openid&redirect_uri=<%= origin %>"
             class="btn btn-primary mx-2"
             >Sign Up</a
           >
           <a
-            href="https://s18stest.auth.us-east-1.amazoncognito.com/login?client_id=7qgeso579hu2gv5qc259ch0h2r&response_type=code&scope=email+openid&redirect_uri=http://localhost:3000"
+            href="<%= cognitoLoginUrl %>/login?client_id=<%= cognitoClientId %>&response_type=code&scope=email+openid&redirect_uri=<%= origin %>"
             class="btn btn-primary mx-2"
             >Log In</a
           >

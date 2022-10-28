@@ -1,8 +1,13 @@
-const qrCode = new QRCodeStyling({
-  width: 2000,
-  height: 2000,
+/*
+There are two const calls here due to how the the rendering works with the svg / QRCodeStyling script. This is a temp quick hack to fix a bug. 
+
+If there were only one, when generateQRCode() is called, the width and height is changed to a smaller resolution (for preview purpose). This affects the download function. If the downloadQRCode function is called _after_ the preview function is called, the download function changes the preview svg image size to 2000 X 2000, which becomes visible for the user. TODO: Adjust CSS for qr div to hide when download button is clicked.
+*/
+
+const qrCodePreview = new QRCodeStyling({
+  width: 250,
+  height: 250,
   margin: 10,
-  image: "http://localhost:3000/assets/images/brand_logo.png",
   type: "svg",
   dotsOptions: {
     color: "#f79225",
@@ -35,19 +40,58 @@ const qrCode = new QRCodeStyling({
   },
 });
 
-function generateQRCode(url) {
-  qrCode.update({
+const qrCodeDownload = new QRCodeStyling({
+  width: 2000,
+  height: 2000,
+  margin: 10,
+  type: "svg",
+  dotsOptions: {
+    color: "#f79225",
+    type: "extra-rounded",
+    gradient: {
+      type: "linear",
+      rotation: 120,
+      colorStops: [
+        {
+          color: "#f79225",
+          offset: 0,
+        },
+        {
+          color: "#fbcb2e",
+          offset: 1,
+        },
+      ],
+    },
+  },
+  cornersSquareOptions: {
+    type: "extra-rounded",
+    color: "#3e3d3d",
+  },
+  backgroundOptions: {
+    color: "#fef5e6",
+  },
+  imageOptions: {
+    crossOrigin: "anonymous",
+    margin: 6,
+  },
+});
+
+function generateQRCode(url, imgOrigin) {
+  qrCodePreview.update({
     data: url,
-    width: 250,
-    height: 250,
+    image: `${imgOrigin}/assets/images/brand_logo.png`,
   });
 
-  qrCode.append(document.getElementById("qr"));
+  qrCodePreview.append(document.getElementById("qr"));
 }
 
-function downloadQRCode(url, name) {
-  qrCode.update({
+function downloadQRCode(url, name, imgOrigin) {
+  qrCodeDownload.update({
     data: url,
+    image: `${imgOrigin}/assets/images/brand_logo.png`,
+    width: 2000,
+    height: 2000,
   });
-  qrCode.download({ name: name, extension: "png" });
+
+  qrCodeDownload.download({ name: name, extension: "png" });
 }
