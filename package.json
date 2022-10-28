@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@loskir/styled-qr-code-node": "^1.5.1",
     "cognito-express": "^3.0.1",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.3",
@@ -19,7 +18,6 @@
     "express-session": "^1.17.3",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.6.6",
-    "qr-code-styling": "^1.6.0-rc.1",
     "randomstring": "^1.2.3"
   },
   "devDependencies": {
