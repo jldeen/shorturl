@@ -24,14 +24,14 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-lg bg-dark">
-      <div class="container" style="overflow: hidden">
+      <div class="container">
         <h1 class="navbar-brand" style="color: white">
           Elastic Containers URL Shortener
         </h1>
       </div>
-      <div>
+      <div class="btn-group">
         <a href="/dashboard" class="btn btn-primary me-1">Dashboard</a>
-        <a href="/logout" class="btn btn-primary mx-2">Logout</a>
+        <a href="/logout" class="btn btn-primary me-2">Logout</a>
       </div>
     </nav>
     <div class="center">
@@ -71,17 +71,25 @@
 
             <div id="qr" class="qr text-center mx-2"></div>
             <button
-              class="btn btn-primary mt-2"
+              type="button"
+              name="preview"
+              class="btn btn-primary mt-2 preview"
               onclick="generateQRCode(`<%= message.shortLink %>`);"
             >
               Preview QR Code
             </button>
             <button
+              type="button"
+              name="download"
               class="btn btn-primary mt-2"
               onclick="downloadQRCode(`<%= message.shortLink %>`, `qr-download`)"
             >
               Download QR Code
             </button>
+          </div>
+          <%} else { %> <% } %> <% if (message) { %>
+          <div class="text-center">
+            <a href="/" class="btn btn-primary mt2">Make Another Link!</a>
           </div>
           <%} else { %> <% } %>
         </form>

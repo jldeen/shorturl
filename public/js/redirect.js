@@ -1,3 +1,14 @@
+// Listen for qr code events
+const center = document.querySelector(".center");
+const message = document.querySelector(".alert");
+const generateButton = center.querySelector(".preview");
+
+generateButton.addEventListener("click", () => {
+  center.classList.add("active");
+  message.classList.add("active");
+});
+
+// Table Sorting - not used
 window.addEventListener("load", function () {
   const el = document.getElementById("date");
   if (el) {
@@ -5,6 +16,7 @@ window.addEventListener("load", function () {
   }
 });
 
+// Redirect after code received from Cognito
 history.replaceState(
   null,
   null,

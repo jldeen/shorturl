@@ -21,9 +21,19 @@ body {
   width: 80%;
   height: 50%;
   min-height: 400px;
-  max-height: 400px;
+  max-height: 775px;
   background: white;
   border-radius: 10px;
+  padding: 20px 20px 20px 20px;
+  transition: height 0.2s ease;
+}
+
+.center.active {
+  height: 82%;
+}
+
+.alert.active {
+  margin-top: 2rem !important;
   padding: 20px 20px 20px 20px;
 }
 
@@ -51,6 +61,26 @@ body {
   height: 50px;
   width: 100%;
 }
+
+.card-1 {
+  border: none;
+  border-radius: 10px;
+  width: 100%;
+  background-color: #fff;
+}
+
+/* table {
+  border: 1px solid black;
+  table-layout: fixed;
+  width: 200px;
+}
+
+th,
+td {
+  border: 1px solid black;
+   width: 200px;
+  overflow: hidden;
+} */
 
 .center h1 {
   text-align: center;
