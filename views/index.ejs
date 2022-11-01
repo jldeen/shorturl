@@ -74,7 +74,7 @@
               type="button"
               name="preview"
               class="btn btn-primary mt-2 preview"
-              onclick="generateQRCode(`<%= message.shortLink %>`, `<% origin %>`);"
+              onclick="generateQRCode(`<%= message.shortLink %>`, `<%= origin %>`);"
             >
               Preview QR Code
             </button>
@@ -82,7 +82,7 @@
               type="button"
               name="download"
               class="btn btn-primary mt-2"
-              onclick="downloadQRCode(`<%= message.shortLink %>`, `qr-download`, `<% origin %>`)"
+              onclick="downloadQRCode(`<%= message.shortLink %>`, `qr-download`, `<%= origin %>`)"
             >
               Download QR Code
             </button>

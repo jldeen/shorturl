@@ -76,19 +76,21 @@ const qrCodeDownload = new QRCodeStyling({
   },
 });
 
-function generateQRCode(url, imgOrigin) {
+// const config = require("../../middleware/config");
+
+function generateQRCode(url, siteUrl) {
   qrCodePreview.update({
     data: url,
-    image: `${imgOrigin}/assets/images/brand_logo.png`,
+    image: `${siteUrl}/assets/images/brand_logo.png`,
   });
 
   qrCodePreview.append(document.getElementById("qr"));
 }
 
-function downloadQRCode(url, name, imgOrigin) {
+function downloadQRCode(url, name, siteUrl) {
   qrCodeDownload.update({
     data: url,
-    image: `${imgOrigin}/assets/images/brand_logo.png`,
+    image: `${siteUrl}/assets/images/brand_logo.png`,
     width: 2000,
     height: 2000,
   });

@@ -10,10 +10,12 @@ const center = document.querySelector(".center");
 const message = document.querySelector(".alert");
 const generateButton = center.querySelector(".preview");
 
-generateButton.addEventListener("click", () => {
-  center.classList.add("active");
-  message.classList.add("active");
-});
+if (generateButton) {
+  generateButton.addEventListener("click", () => {
+    center.classList.add("active");
+    message.classList.add("active");
+  });
+}
 
 // // Table Sorting - not used
 // window.addEventListener("load", function () {

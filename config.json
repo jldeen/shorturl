@@ -1,0 +1,5 @@
+{
+    "cognitoLoginUrl": "https://s18stest.auth.us-east-1.amazoncognito.com",
+    "cognitoClientId": "7qgeso579hu2gv5qc259ch0h2r",
+    "siteUrl": "http://localhost:3000"
+}

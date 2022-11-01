@@ -1,4 +1,6 @@
 const CognitoExpress = require("cognito-express");
+
+const config = require("../middleware/config");
 require("dotenv").config();
 
 // Setup CognitoExpress
@@ -10,11 +12,10 @@ const cognitoExpress = new CognitoExpress({
 });
 
 exports.fetchToken = async (grantCode) => {
-  const token_url =
-    "https://s18stest.auth.us-east-1.amazoncognito.com/oauth2/token";
+  const token_url = config.cognitoLoginUrl + "/oauth2/token";
 
   const authorization = btoa(
-    process.env.COGNITO_CLIENT_ID + ":" + process.env.COGNITO_CLIENT_SECRET
+    config.cognitoClientId + ":" + process.env.COGNITO_CLIENT_SECRET
   );
   const options = {
     method: "post",
@@ -25,8 +26,8 @@ exports.fetchToken = async (grantCode) => {
     },
     body: new URLSearchParams({
       grant_type: "authorization_code",
-      client_id: process.env.COGNITO_CLIENT_ID,
-      redirect_uri: process.env.REDIRECT_URI,
+      client_id: config.cognitoClientId,
+      redirect_uri: config.siteUrl,
       code: grantCode,
     }),
   };
@@ -42,13 +43,15 @@ exports.fetchToken = async (grantCode) => {
 
 exports.validateToken = async (access_token, res, next) => {
   cognitoExpress.validate(access_token, function (err, response) {
-    //If API is not authenticated, redirect to login
+    //If API is not authenticated, redirect to login again
     if (err) {
-      //   return res.status(403).send(err)
-      console.log(err);
       res.clearCookie("token");
       res.clearCookie("user");
-      return res.render("welcome", err);
+      return res.render("welcome", {
+        origin: config.siteUrl,
+        cognitoLoginUrl: config.cognitoLoginUrl,
+        cognitoClientId: config.cognitoClientId,
+      });
     }
 
     //Else API has been authenticated. Proceed.

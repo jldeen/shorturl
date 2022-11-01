@@ -18,7 +18,8 @@
     "express-session": "^1.17.3",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.6.6",
-    "randomstring": "^1.2.3"
+    "randomstring": "^1.2.3",
+    "underscore": "^1.13.6"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"

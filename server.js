@@ -10,6 +10,8 @@ const ShortUrl = require("./models/shortUrl");
 // allow .env
 require("dotenv").config();
 
+const config = require("./middleware/config");
+
 // Connect to DB
 mongoose.connect(
   process.env.MONGODB || "mongodb://mongodb:27017/urlShortener",
@@ -23,9 +25,10 @@ mongoose.connect(
 const app = express();
 
 // App Middleware
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser("secret"));
 app.use(
+  express.urlencoded({ extended: false }),
+  express.static("public"),
+  cookieParser("secret"),
   session({
     secret: "secret",
     cookie: {
@@ -47,9 +50,6 @@ app.use((req, res, next) => {
 // Set template engine
 app.set("view engine", "ejs");
 
-// Store static files
-app.use(express.static("public"));
-
 // Cookie Same Site
 if (process.env.NODE_ENV === "production") {
   app.set("trust proxy", 1); // trust first proxy
@@ -58,12 +58,10 @@ if (process.env.NODE_ENV === "production") {
 // Routes
 app.get("/", [validateAuth], async (req, res) => {
   const shortUrls = await ShortUrl.find();
-  const origin = req.protocol + "://" + req.headers.host;
-  // const origin = req.headers.referer;
 
   res.render("index", {
     shortUrls: shortUrls,
-    origin: origin,
+    origin: config.siteUrl,
   });
 });
 
@@ -76,10 +74,9 @@ app.get("/logout", [validateAuth], async (req, res) => {
 
 app.get("/dashboard", [validateAuth], async (req, res) => {
   const shortUrls = await ShortUrl.find();
-  const origin = req.protocol + "://" + req.headers.host;
   res.render("dashboard", {
     shortUrls: shortUrls,
-    origin: origin,
+    origin: config.siteUrl,
   });
 });
 
@@ -102,7 +99,7 @@ app.post("/shortUrls", [validateAuth], async (req, res, next) => {
     });
 
     // Get shortlink
-    const shortLink = process.env.REDIRECT_URI + "/" + url.toJSON().short;
+    const shortLink = config.siteUrl + "/" + url.toJSON().short;
 
     const user = url.toJSON().email;
     console.log(shortLink, "created successfully by", user);

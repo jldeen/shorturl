@@ -50,10 +50,13 @@
         <tbody>
           <% shortUrls.forEach(shortUrl => { %>
           <tr class="border-bottom">
-            <td><%= shortUrl.date %></td>
+            <td>
+              <%= shortUrl.date.toLocaleDateString('en-us', { weekday:"short",
+              year:"numeric", month:"short", day:"numeric"}) %>
+            </td>
             <td>
               <a href="<%= shortUrl.full %>" target="_blank" style="width: 1vw"
-                ><%= shortUrl.full %></a
+                ><%= shortUrl.full.replace(/(.{80})..+/, "$1…") %></a
               >
             </td>
             <td>
@@ -84,7 +87,7 @@
               <a
                 id="qr"
                 href="javascript:void(0);"
-                onclick="downloadQRCode(`<%= origin %>/<%= shortUrl.short %>`, `qr-<%= shortUrl.short %>`)"
+                onclick="downloadQRCode(`<%= origin %>/<%= shortUrl.short %>`, `qr-<%= shortUrl.short %>`, `<%= origin %>`)"
               >
                 <img id="qr" class="img-thumbnail img-qr" src="../qrcode.png"
               /></a>

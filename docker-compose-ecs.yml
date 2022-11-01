@@ -6,10 +6,9 @@ services:
     restart: always
     environment:
       - NODE_ENV=production
-      - REDIRECT_URI=https://jldeen.dev
       - AWS_DEFAULT_REGION=us-east-1
       - COGNITO_USER_POOL_ID=us-east-1_OuS68Cxfl
-      - COGNITO_CLIENT_ID=7qgeso579hu2gv5qc259ch0h2r
+      - PORT=80
     ports:
       - 80
     links:
