@@ -31,7 +31,6 @@ jobs:
     runs-on: "ubuntu-latest"
     needs:
       - ci
-    # if: startsWith(github.ref, 'refs/tags/')
     steps:
       - name: "Checkout Code"
         uses: "actions/checkout@v3"
@@ -73,6 +72,12 @@ jobs:
           task-definition: task-definition.json
           container-name: s18s
           image: ${{ steps.build-image.outputs.image }}
+          environment-variables: |
+            NODE_ENV=production
+            MONGODB=${{ secrets.MONGODB_URL }}
+            PORT=80
+            COGNITO_USER_POOL_ID=us-east-1_OuS68Cxfl
+            AWS_DEFAULT_REGION=us-east-1
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
