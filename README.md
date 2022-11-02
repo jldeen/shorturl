@@ -1,4 +1,4 @@
-# URL Shortener - Powered by AWS ECS/Fargate, AWS Cognito, and MongoDB,
+# URL Shortener - Powered by AWS ECS/Fargate, AWS Cognito, and Amazon DocumentDB,
 
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com)  
@@ -10,7 +10,7 @@ A simple Express web app that shortens long urls and provides custom QR codes fo
 - Dashboard (This is where you view the created URLs, clicks, and download the desired QR codes)
 - Welcome (This is where you login using AWS Cognito)
 
-The application currently uses MongoDB to store the following information:
+The application currently uses MongoDB (or Amazon DocumentDB) to store the following information:
 
 - long url
 - short url (generated or vanity)
@@ -57,7 +57,4 @@ To be added...
 
 ### Things to be done
 
-- Support for filter / searching by by url/short
-- Add Support for IaC / CICD - ideally we will use CDK or TF to stand up all necessary infra and deploy new changes easily to ECS
-- General Code cleanup
-- CSS could probably use cleaning up as well, as it stands right now, the site is not designed for mobile use
+See the [issues](https://github.com/jldeen/shorturl/issues) for opportunities to collaborate.
