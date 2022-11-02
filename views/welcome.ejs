@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+    <title>Elastic Containers URL Shortener</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-dark">
+      <div class="container">
+        <h1 class="navbar-brand" style="color: white">
+          Elastic Containers URL Shortener
+        </h1>
+      </div>
+      <div class="btn-group">
+        <a
+          href="<%= cognitoLoginUrl %>/signup?client_id=<%= cognitoClientId %>&response_type=code&scope=email+openid&redirect_uri=<%= origin %>"
+          class="btn btn-primary me-1"
+          >Sign Up</a
+        >
+        <a
+          href="<%= cognitoLoginUrl %>/login?client_id=<%= cognitoClientId %>&response_type=code&scope=email+openid&redirect_uri=<%= origin %>"
+          class="btn btn-primary me-2"
+          >Sign In</a
+        >
+      </div>
+    </nav>
+    <div class="center">
+      <div>
+        <h1>Welcome to the Elastic Containers / Fargate URL shortener</h1>
+        <div></div>
+        <div class="text-center login">
+          <a
+            href="<%= cognitoLoginUrl %>/signup?client_id=<%= cognitoClientId %>&response_type=code&scope=email+openid&redirect_uri=<%= origin %>"
+            class="btn btn-primary mx-2"
+            >Sign Up</a
+          >
+          <a
+            href="<%= cognitoLoginUrl %>/login?client_id=<%= cognitoClientId %>&response_type=code&scope=email+openid&redirect_uri=<%= origin %>"
+            class="btn btn-primary mx-2"
+            >Log In</a
+          >
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="text-center footer">
+        Powered by ECS, Fargate, MongoDB Atlas on AWS, and AWS Cognito
+      </div>
+      <div class="logo">
+        <img src="../assets/images/footer-logo.png" />
+      </div>
+    </footer>
+  </body>
+</html>

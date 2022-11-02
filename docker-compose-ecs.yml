@@ -1,0 +1,21 @@
+version: "3"
+services:
+  shorturl:
+    container_name: short-url
+    image: jldeen/shorturl:v5
+    restart: always
+    environment:
+      - NODE_ENV=production
+      - AWS_DEFAULT_REGION=us-east-1
+      - COGNITO_USER_POOL_ID=us-east-1_OuS68Cxfl
+      - MONGODB=mongodb://mongodb:27017/urlShortener
+      - PORT=80
+    ports:
+      - 80
+    links:
+      - mongodb
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    ports:
+      - 27017

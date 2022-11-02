@@ -1,26 +1,34 @@
 const express = require("express");
+const ejs = require("ejs");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const mongoose = require("mongoose");
-const randomstring = require("randomstring");
-const qrcode = require("qrcode");
-
+const randomString = require("randomstring");
+const { validateAuth } = require("./middleware/auth");
 const ShortUrl = require("./models/shortUrl");
-const helper = require("./helper");
+
+// allow .env
+require("dotenv").config();
+
+const config = require("./middleware/config");
 
 // Connect to DB
-mongoose.connect("mongodb://localhost:27017/urlShortener", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(
+  process.env.MONGODB || "mongodb://mongodb:27017/urlShortener",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 
 // Initialize app
 const app = express();
 
 // App Middleware
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser("secret"));
 app.use(
+  express.urlencoded({ extended: false }),
+  express.static("public"),
+  cookieParser("secret"),
   session({
     secret: "secret",
     cookie: {
@@ -32,15 +40,6 @@ app.use(
   })
 );
 
-// Temp fix for qr place holder
-app.use(express.static("public"));
-
-// Cookie Same Site
-if (process.env.NODE_ENV === "production") {
-  app.set("trust proxy", 1); // trust first proxy
-  sessionConfig.cookie.secure = true; // serve secure cookies
-}
-
 //flash message middleware
 app.use((req, res, next) => {
   res.locals.message = req.session.message;
@@ -51,18 +50,38 @@ app.use((req, res, next) => {
 // Set template engine
 app.set("view engine", "ejs");
 
-app.get("/", async (req, res) => {
+// Cookie Same Site
+if (process.env.NODE_ENV === "production") {
+  app.set("trust proxy", 1); // trust first proxy
+}
+
+// Routes
+app.get("/", [validateAuth], async (req, res) => {
   const shortUrls = await ShortUrl.find();
-  const origin = req.protocol + "://" + req.headers.host;
+
   res.render("index", {
     shortUrls: shortUrls,
-    origin: origin,
-    helper: helper,
+    origin: config.siteUrl,
+  });
+});
+
+app.get("/logout", [validateAuth], async (req, res) => {
+  res.clearCookie("token");
+  res.clearCookie("user");
+  console.log("signed out");
+  res.redirect("/");
+});
+
+app.get("/dashboard", [validateAuth], async (req, res) => {
+  const shortUrls = await ShortUrl.find();
+  res.render("dashboard", {
+    shortUrls: shortUrls,
+    origin: config.siteUrl,
   });
 });
 
 // create shorturl
-app.post("/shortUrls", async (req, res) => {
+app.post("/shortUrls", [validateAuth], async (req, res, next) => {
   const dbQuery = await ShortUrl.findOne({ short: req.body.vanityUrl });
   if (dbQuery) {
     // display error message if short url already exists
@@ -72,15 +91,25 @@ app.post("/shortUrls", async (req, res) => {
       message: "Please try a different name.",
     };
   } else {
-    await ShortUrl.create({
+    // create link in db
+    const url = await ShortUrl.create({
       full: req.body.fullUrl,
-      short: req.body.vanityUrl || randomstring.generate(7),
+      short: req.body.vanityUrl || randomString.generate(7),
+      email: req.cookies.user,
     });
+
+    // Get shortlink
+    const shortLink = config.siteUrl + "/" + url.toJSON().short;
+
+    const user = url.toJSON().email;
+    console.log(shortLink, "created successfully by", user);
+
     // Confirm short url created successfully
     req.session.message = {
       type: "success",
       intro: "Success!",
-      message: "Short URL successfully created.",
+      message: `Short URL ${shortLink} successfully created.`,
+      shortLink: `${shortLink}`,
     };
   }
   res.redirect("/");
