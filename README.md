@@ -18,6 +18,25 @@ The application currently uses MongoDB (or Amazon DocumentDB) to store the follo
 - date
 - clicks
 
+The following configuration variable keys are used and stored in a config.json file:
+
+| Key             | Value                                                                    |
+| --------------- | ------------------------------------------------------------------------ |
+| cognitoLoginUrl | Example: https://[coginto-domain-prefix].auth.[region].amazoncognito.com |
+| cognitoClientId | Example: zam0d9r8i22h6fjl11c7cn3a0                                       |
+| siteUrl         | Example: s18s.io                                                         |
+
+The following environment variable keys are used and stored in a .env file:
+
+| Key                   | Value                                                        |
+| --------------------- | ------------------------------------------------------------ |
+| MONGODB               | Default formate: mongodb://url-here/dbName-here              |
+| AWS_DEFAULT_REGION    | Example: us-east-1                                           |
+| NODE_ENV              | Example: Production                                          |
+| PORT                  | Example: 80                                                  |
+| COGNITO_USER_POOL_ID  | Example: us-east-1_InV89Oqpl                                 |
+| COGNITO_CLIENT_SECRET | Example: 324u3q48psm4g8hpo576vdji1sfmtdjk8lv1vbe28hneslhk20p |
+
 ## Pre-reqs
 
 - AWS Cognito
