@@ -79,6 +79,7 @@ jobs:
             PORT=80
             COGNITO_USER_POOL_ID=us-east-1_OuS68Cxfl
             AWS_DEFAULT_REGION=us-east-1
+            COGNITO_CLIENT_SECRET=${{ secrets.COGNITO_CLIENT_SECRET }}
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
